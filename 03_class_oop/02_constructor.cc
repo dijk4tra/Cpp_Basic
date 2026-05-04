@@ -65,12 +65,9 @@ public:
     }
     /*
      * 上面的初始化列表看起来像是：
-     *
      * 1. 先初始化 m_x = x
      * 2. 再初始化 m_y = m_x
-     *
      * 但这是错误理解。
-     *
      * 实际初始化顺序由成员变量在 private 中的声明顺序决定：
      *
      * private:
@@ -78,7 +75,6 @@ public:
      *     int m_x; // 后声明，所以后初始化
      *
      * 因此实际顺序是：
-     *
      * 1. 先初始化 m_y(m_x)
      * 2. 再初始化 m_x(x)
      *
@@ -132,7 +128,6 @@ public:
     // data2 默认值是 1
     //
     // 所以下面几种写法都可以：
-    //
     // MyClass obj;          // data1 = 1,  data2 = 1
     // MyClass obj{10};      // data1 = 10, data2 = 1
     // MyClass obj{10, 20};  // data1 = 10, data2 = 20
@@ -154,12 +149,10 @@ public:
      * 原因：
      * 上面的 MyClass(int data1 = 1, int data2 = 1)
      * 本身就可以无参调用：
-     *
      * MyClass obj;
      *
      * 如果再写一个 MyClass()，
      * 编译器就不知道应该调用哪一个：
-     *
      * 1. MyClass()
      * 2. MyClass(int data1 = 1, int data2 = 1)
      *
@@ -175,30 +168,22 @@ public:
 
     /*
      * 注意：
-     *
      * 如果构造函数初始化列表中显式初始化了成员变量，
      * 那么初始化列表中的值优先。
      *
      * 例如：
-     *
      * MyClass obj;
-     *
      * 会调用：
-     *
      * MyClass(int data1 = 1, int data2 = 1)
      *
      * 初始化列表中写了：
-     *
      * m_data1(data1),
      * m_data2(data2)
      *
      * 所以最终：
-     *
      * m_data1 = 1
      * m_data2 = 1
-     *
      * 而不是类内默认值 10 和 20。
-     *
      * 类内默认值只有在构造函数没有显式初始化该成员时才会生效。
      */
 };
