@@ -57,16 +57,13 @@ using std::endl;
  *
  * 例如：
  * pt2 = pt1;
- *
  * 其中：
  * pt2 是赋值号左边的对象，也是当前对象
  * pt1 是赋值号右边的对象，也就是 rhs
  *
  *
  * 赋值运算符函数的本质：
- *
  * pt2 = pt1;
- *
  * 本质上可以理解为：
  * pt2.operator=(pt1);
  * 所以 operator= 其实就是一个成员函数。
@@ -80,10 +77,8 @@ using std::endl;
  * 
  *    例如：
  *    pt3 = pt2 = pt1;
- *
  *    赋值运算符是从右往左结合的，
  *    所以上面的代码等价于：
- *
  *    pt3 = (pt2 = pt1);
  *
  *    pt2 = pt1 执行完成后，
@@ -98,17 +93,13 @@ using std::endl;
  * 2. 为什么返回类名 &，而不是类名？
  *
  *    如果返回 Point：
- *
  *    Point operator=(const Point & rhs)
- *
  *    那么 return *this 时，
  *    会用当前对象再拷贝构造出一个临时对象作为返回值，
  *    可能产生额外的拷贝。
  *
  *    如果返回 Point &：
- *
  *    Point & operator=(const Point & rhs)
- *
  *    就是直接返回当前对象本身，
  *    不会产生额外对象，
  *    效率更高，也更符合内置类型赋值的行为。
@@ -121,7 +112,6 @@ using std::endl;
  *
  *    例如：
  *    pt2 = pt1;
- *
  *    赋值之后：
  *    pt2 的值变成和 pt1 一样，
  *    但是 pt1 自己不应该发生变化。
@@ -137,14 +127,12 @@ using std::endl;
  *
  *    如果写成：
  *    Point & operator=(const Point rhs)
- *
  *    那么调用 operator= 之前，
  *    还需要先把右边对象拷贝一份给形参 rhs，
  *    这样效率较低。
  *
  *    写成：
  *    Point & operator=(const Point & rhs)
- *
  *    就可以直接引用右边对象，
  *    避免复制。
  *
@@ -156,15 +144,12 @@ using std::endl;
  *
  *    在：
  *    pt2 = pt1;
- *
  *    中，当前对象是 pt2，
  *    所以 this 指向 pt2。
  *
  *    *this 表示当前对象本身，
  *    也就是 pt2。
- *
  *    return *this;
- *
  *    就是把赋值后的当前对象返回出去，
  *    用来支持连续赋值。
  */

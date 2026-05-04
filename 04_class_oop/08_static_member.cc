@@ -12,7 +12,6 @@ using std::string;
  * 叫做静态数据成员。
  *
  * 语法：
- *
  * class 类名
  * {
  * public:
@@ -29,14 +28,11 @@ using std::string;
  *    例如：
  *    MyClass obj;
  *    obj.m_x;
- *
  *    m_x 是 obj 这个对象自己的成员。
- *
  *    但是 static 数据成员属于类本身。
  *
  *    例如：
  *    MyClass::m_data;
- *
  *    即使没有创建对象，
  *    也可以通过类名访问静态数据成员。
  *
@@ -53,13 +49,10 @@ using std::string;
  * 3. 静态数据成员一般通过类名作用域访问
  *
  *    推荐写法：
- *
  *    MyClass::m_data
  *
  *    虽然也可以通过对象访问：
- *
  *    obj.m_data
- *
  *    但是这种写法容易让人误以为 m_data 属于 obj，
  *    所以不推荐。
  *
@@ -76,15 +69,11 @@ using std::string;
  * 5. 静态数据成员通常需要在类外进行定义和初始化
  *
  *    类中写：
- *
  *    static int m_data;
- *
  *    这只是声明，表示 MyClass 类中有一个静态成员 m_data。
  *
  *    类外还要写：
- *
  *    int MyClass::m_data = 1;
- *
  *    这才是真正给静态成员分配存储空间并初始化。
  *
  *
@@ -96,12 +85,10 @@ using std::string;
  *    不属于某一个对象。
  *
  *    所以不能写：
- *
  *    MyClass(int a)
  *    : m_data(a)
  *    {
  *    }
- *
  *    这种写法是错误的。
  */
 
@@ -129,7 +116,6 @@ public:
     // 静态数据成员
     //
     // 这只是类内声明。
-    //
     // 它告诉编译器：
     // MyClass 类中有一个静态 int 成员 m_data。
     //
@@ -156,7 +142,6 @@ void test1()
      * 访问静态数据成员。
      *
      * 推荐通过类名作用域访问：
-     *
      * MyClass::m_data
      *
      * 此时还没有创建任何 MyClass 对象，
@@ -167,7 +152,7 @@ void test1()
      */
     cout << MyClass::m_data << endl;
 
-    cout << "------"<< endl;
+    cout << "------" << endl;
 
     /*
      * 修改静态数据成员。
@@ -202,7 +187,6 @@ void test1()
      * 没有普通非静态数据成员。
      *
      * static 成员不占对象本身的内存。
-     *
      * 所以 MyClass 对象本身相当于是空对象。
      *
      * C++ 中空对象大小通常是 1，
@@ -236,9 +220,7 @@ public:
          * 构造函数就会执行一次。
          *
          * 所以在构造函数中执行：
-         *
          * m_count++;
-         *
          * 就可以统计一共创建了多少个 Student 对象。
          *
          * m_count 是 static 成员，
@@ -262,29 +244,22 @@ public:
     }
 
     // 普通数据成员
-    //
     // 每个 Student 对象都有自己独立的 m_id。
     int m_id;
 
     // 普通数据成员
-    //
     // 每个 Student 对象都有自己独立的 m_name。
     string m_name;
 
     // 静态数据成员
-    //
     // 班级编号。
-    //
     // 假设所有 Student 对象都属于同一个班级，
     // 那么班级编号不需要每个对象都保存一份。
-    //
     // 使用 static 可以让所有对象共享同一个班级编号。
     static int m_classID;
 
     // 静态数据成员
-    //
     // 用来统计一共创建了多少个学生对象。
-    //
     // 因为它属于 Student 类本身，
     // 所以无论创建多少个 Student 对象，
     // 它在内存中都只有一份。
@@ -292,7 +267,6 @@ public:
 };
 
 // 类外定义并初始化 Student 的静态数据成员
-//
 // 班级编号初始化为 10。
 int Student::m_classID = 10;
 
@@ -308,12 +282,10 @@ void test2()
      * 创建三个 Student 对象。
      *
      * 每个对象都有自己独立的：
-     *
      * m_id
      * m_name
      *
      * 但是它们共享同一个：
-     *
      * m_classID
      * m_count
      */
@@ -323,7 +295,6 @@ void test2()
 
     /*
      * 三个学生打印出来的班级编号都是 10。
-     *
      * 因为 m_classID 是 static 成员，
      * 所有 Student 对象共享这一份数据。
      */
@@ -338,7 +309,6 @@ void test2()
      * 所以 Student::m_count 的值是 3。
      *
      * 推荐通过类名访问静态成员：
-     *
      * Student::m_count
      */
     cout << Student::m_count << endl;
