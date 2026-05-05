@@ -1,7 +1,4 @@
-#include <ios>
 #include <iostream>
-#include <istream>
-#include <ostream>
 #include <limits>
 
 using std::cout;
