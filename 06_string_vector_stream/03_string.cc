@@ -1,5 +1,4 @@
 #include <iostream>
-#include <ostream>
 #include <string.h>
 
 using std::cout;
