@@ -22,11 +22,7 @@ using std::endl;
  *
  *    如果内部类是 public 的，
  *    类外部可以通过：
- *
- *    Outer::Inner1 inner1;
- *
- *    创建内部类对象。
- *
+ *    Outer::Inner1 inner1;创建内部类对象。
  *    但是创建对象后，
  *    仍然只能访问 Inner1 的 public 成员。
  *    如果要访问 Inner1 的 private 成员，
@@ -41,7 +37,7 @@ using std::endl;
  *    外部类内部可以直接创建内部类对象。
  *
  *    此时内部类本身是 public 还是 private，
- *    对 Outer 自己来说已经没有区别。
+ *    对 Outer 来说已经没有区别，都可以直接创建对象。
  *
  *    但是 Outer 通过对象访问内部类成员时，
  *    仍然只能访问内部类的 public 成员。
