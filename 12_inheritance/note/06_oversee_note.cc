@@ -13,7 +13,7 @@ using std::endl;
  *    函数名相同，但是参数列表不同。
  *
  *
- * 2. oversee
+ * 2. hide(oversee)
  *    隐藏。
  *
  *    发生在继承关系中。
