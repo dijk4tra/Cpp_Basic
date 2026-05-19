@@ -10,8 +10,8 @@ T sum(T value)
 }
 
 // 可变模板参数函数
-template<typename T, typename... Args>
-auto sum(T first, Args... rest)
+template<typename T, typename ...Args>
+auto sum(T first, Args ...rest)
 {
     return first + sum(rest...);
 }

@@ -1,16 +1,40 @@
 #include <iostream>
+using namespace std;
 
-using std::cout;
-using std::endl;
+template <typename T>
+class Pair {
+private:
+    T first;
+    T second;
 
-void test1()
-{
+public:
+    Pair(T a, T b) {
+        first = a;
+        second = b;
+    }
 
-}
+    T getFirst() {
+        return first;
+    }
 
-int main(int argc, char *argv[])
-{
-    test1();
+    T getSecond() {
+        return second;
+    }
+
+    void show() {
+        cout << first << " " << second << endl;
+    }
+};
+
+int main() {
+    Pair<int> p1(10, 20);
+    p1.show();
+
+    Pair<double> p2(1.5, 2.8);
+    p2.show();
+
+    Pair<string> p3("hello", "world");
+    p3.show();
+
     return 0;
 }
-

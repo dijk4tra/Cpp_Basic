@@ -1,16 +1,15 @@
 #include <iostream>
+using namespace std;
 
-using std::cout;
-using std::endl;
-
-void test1()
-{
-
+template <typename T>
+T myMax(T a, T b) {
+    return a > b ? a : b;
 }
 
-int main(int argc, char *argv[])
-{
-    test1();
+int main() {
+    cout << myMax(3, 5) << endl;
+    cout << myMax(2.5, 1.8) << endl;
+    cout << myMax('a', 'z') << endl;
+
     return 0;
 }
-

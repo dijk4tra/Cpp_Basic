@@ -1,16 +1,30 @@
 #include <iostream>
+#include <string>
+using namespace std;
 
-using std::cout;
-using std::endl;
+template <typename T1, typename T2>
+class Info {
+private:
+    T1 name;
+    T2 score;
 
-void test1()
-{
+public:
+    Info(T1 n, T2 s) {
+        name = n;
+        score = s;
+    }
 
-}
+    void show() {
+        cout << "name: " << name << ", score: " << score << endl;
+    }
+};
 
-int main(int argc, char *argv[])
-{
-    test1();
+int main() {
+    Info<string, int> student1("Tom", 90);
+    student1.show();
+
+    Info<string, double> student2("Alice", 88.5);
+    student2.show();
+
     return 0;
 }
-
