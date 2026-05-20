@@ -20,7 +20,9 @@ public:
     // 构造函数
     // 使用 make_shared 创建一个动态分配的 vector<string>
     // 用来保存文件中的所有原始文本行
-    TextQuery() : _lines(make_shared<vector<string>>()) {}
+    TextQuery() 
+    : _lines(make_shared<vector<string>>()) 
+    {}
 
     // 读取指定文件
     // filename 是用户指定的文件名
