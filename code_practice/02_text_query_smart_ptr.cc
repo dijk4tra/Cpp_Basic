@@ -147,8 +147,105 @@ void TextQuery::readFile(const string &filename)
     ifs.close();
 }
 
+QueryResult TextQuery::query(const string &word) const
+{
+    // 当查询的单词不存在时，使用这个空的 set<int>
+    // static 保证 nodata 在函数调用结束后仍然存在
+    // shared_ptr 用来和 QueryResult 的接口保持一致
+    static shared_ptr<set<int>> nodata(new set<int>);
+
+    // 先在_dict 中查找该单词是否出现过
+    auto dictIt = _dict.find(word);
+    
+    // 如果没有找到，说明该单词出现次数为 0
+    if(dictIt == _dict.end())
+    {
+        return QueryResult(word, 0, nodata, _lines);
+    }
+
+    // 在 _wordToLineNumbers 中查找该单词对应的行号集合
+    auto lineIt = _wordToLineNumbers.find(word);
+
+    // 正常情况下，只要 _dict 中有该单词，
+    // _wordToLineNumbers 中也应该有它。
+    // 这里做一次判断，是为了让程序更加安全
+    if (lineIt == _wordToLineNumbers.end())
+    {
+        return QueryResult(word, dictIt->second, nodata, _lines);
+    }
+
+    // 返回查询结果：
+    // word：查询的单词
+    // dictIt->second：该单词出现的总次数
+    // lineIt->second：该单词出现过的行号集合
+    // _lines：文件的原始文本内容
+    return QueryResult(word, dictIt->second, lineIt->second, _lines);
+}
+
+void print(ostream &os, const QueryResult &qr)
+{
+    // 输出单词出现的总次数
+    os << qr._word << " occurs " << qr._count << " times." << endl;
+
+    // 遍历该单词出现过的所有行号
+    // set<int> 中的行号已经自动升序排列，并且没有重复
+    for(int lineNumber : *(qr._lineNumbers)) // 解引用获取到它背后真正指向的 set 容器实体
+    {
+        // lineNumber 从 1 开始
+        // vector 下标从 0 开始
+        // 所以访问对应原始行时，需要 lineNumber - 1
+        os << "    (line " << lineNumber << ") "
+           << (*qr._lines)[lineNumber - 1] << endl;
+    }
+}
+
 int main(int argc, char *argv[])
 {
-    
+    string filename;
+
+    // 如果用户在命令行中传入了文件名，
+    // 例如：./text_query china_daily.txt
+    // 那么 argc >= 2，argv[1] 就是文件名
+    if (argc >= 2)
+    {
+        filename = argv[1];
+    }
+    else
+    {
+        // 如果没有通过命令行传入文件名，
+        // 就让用户手动输入文件名
+        cout << "Please input filename: ";
+        cin >> filename;
+    }
+
+    // 创建 TextQuery 对象
+    TextQuery tq;
+
+    // 读取并处理文件内容
+    tq.readFile(filename);
+
+    string queryWord;
+
+    cout << "Please input query word, or input q to quit: ";
+
+    // 循环读取用户输入的查询单词
+    while (cin >> queryWord)
+    {
+        // 输入 q 时退出查询
+        if (queryWord == "q")
+        {
+            break;
+        }
+
+        // 查询指定单词，得到查询结果对象
+        QueryResult qr = tq.query(queryWord);
+
+        // 输出查询结果
+        print(cout, qr);
+
+        cout << endl;
+        cout << "Please input query word, or input q to quit: ";
+    }
+
     return 0;
 }

@@ -44,7 +44,7 @@ void query(const string & word);//
 private:
 //......
 vector<string> _lines;//O(1)
-map<string, set<int> > _wordNumbers;//the the
+map<string, set<int> > _wordToLineNumbers;//the the
 map<string, int> _dict;//
 };
 
@@ -79,7 +79,7 @@ public:
 
 private:
     vector<string> _lines;
-    map<string, set<int>> _wordNumbers;
+    map<string, set<int>> _wordToLineNumbers;
     map<string, int> _dict;
 };
 
@@ -112,13 +112,13 @@ void TextQuery::readFile(const string &filename)
             // 记录单词出现次数
             ++_dict[word];
             //记录单词所在行号
-            _wordNumbers[word].insert(lineNumber);
+            _wordToLineNumbers[word].insert(lineNumber);
         }
     }
     ifs.close();
 }
 
-void TextQuery::query(const string& word) const
+void TextQuery::query(const string &word) const
 {
     auto dictIt = _dict.find(word);
     if(dictIt == _dict.end())
@@ -129,9 +129,9 @@ void TextQuery::query(const string& word) const
 
     cout << word << " occurs " << dictIt->second << " times." << endl;
 
-    auto lineIt = _wordNumbers.find(word);
+    auto lineIt = _wordToLineNumbers.find(word);
 
-    if (lineIt != _wordNumbers.end())
+    if (lineIt != _wordToLineNumbers.end())
     {
         for(int lineNumber : lineIt->second)
         {

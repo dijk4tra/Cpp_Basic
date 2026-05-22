@@ -194,7 +194,7 @@ void print(ostream &os, const QueryResult &qr)
 
     // 遍历该单词出现过的所有行号
     // set<int> 中的行号已经自动升序排列，并且没有重复
-    for (int lineNumber : *qr._lineNumbers)
+    for (int lineNumber : *(qr._lineNumbers)) // 解引用获取到它背后真正指向的 set 容器实体
     {
         // lineNumber 从 1 开始
         // vector 下标从 0 开始
