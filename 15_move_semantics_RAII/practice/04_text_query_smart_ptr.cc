@@ -47,7 +47,7 @@ private:
     // 保存每个单词总共出现的次数
     // key 是单词
     // value 是该单词出现的总次数
-    map<string, int> _dict;
+    map<string, int> _wordNumbers;
 };
 
 class QueryResult
@@ -127,7 +127,7 @@ void TextQuery::readFile(const string &filename)
         {
             // 统计该单词出现的总次数
             // 如果 word 第一次出现，map 会自动创建对应的 int，初始值为 0
-            ++_dict[word];
+            ++_wordNumbers[word];
 
             // 取得该单词对应的行号集合
             // 如果 word 第一次出现，map 会自动创建一个空的 shared_ptr
@@ -159,11 +159,11 @@ QueryResult TextQuery::query(const string &word) const
     // shared_ptr 用来和 QueryResult 的接口保持一致
     static shared_ptr<set<int>> nodata(new set<int>);
 
-    // 先在 _dict 中查找该单词是否出现过
-    auto dictIt = _dict.find(word);
+    // 先在 _wordNumbers 中查找该单词是否出现过
+    auto dictIt = _wordNumbers.find(word);
 
     // 如果没有找到，说明该单词出现次数为 0
-    if (dictIt == _dict.end())
+    if (dictIt == _wordNumbers.end())
     {
         return QueryResult(word, 0, nodata, _lines);
     }
@@ -171,7 +171,7 @@ QueryResult TextQuery::query(const string &word) const
     // 在 _wordToLineNumbers 中查找该单词对应的行号集合
     auto lineIt = _wordToLineNumbers.find(word);
 
-    // 正常情况下，只要 _dict 中有该单词，
+    // 正常情况下，只要 _wordNumbers 中有该单词，
     // _wordToLineNumbers 中也应该有它。
     // 这里做一次判断，是为了让程序更加安全
     if (lineIt == _wordToLineNumbers.end())

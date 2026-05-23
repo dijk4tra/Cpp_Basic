@@ -4,7 +4,7 @@
 using namespace std;
 
 /**
- * 无序关联式容器：
+ * 无序关联式容器：哈希表
  *
  * unordered_set：
  * - 无序集合容器

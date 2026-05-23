@@ -30,14 +30,14 @@ public:
     // 写法一：在自定义类型中重载 operator<
     // ==========================================
     // 规则：先比 x，x 相同再比 y
-    bool operator<(const Point& rhs) const
+    /* bool operator<(const Point& rhs) const
     {
         if (m_x != rhs.m_x)
         {
             return m_x < rhs.m_x;
         }
         return m_y < rhs.m_y;
-    }
+    } */
 
 private:
     int m_x;
@@ -110,7 +110,7 @@ int main()
     // ------------------------------------------
     // 测试写法三：默认会调用 std::less<Point>，此时已被我们特化
     // ------------------------------------------
-    // 注意：为了演示写法三，我们需要把写法一的 operator< 注释掉，
+    // 注意：为了演示写法三，需要把写法一的 operator< 注释掉，
     // 或者用一个没有重载 operator< 的新类。
     // 如果同时存在 operator< 和 std::less 特化，set 在不指定第二个参数时
     // 默认走 std::less，而 std::less 内部会优先调用我们的特化版本。
