@@ -15,23 +15,23 @@ using namespace std;
  *     // 函数体
  * }
  *
- * 1. 捕获列表
+ * 1. 捕获列表(Capture clause)
  *    用于捕获 lambda 表达式所在作用域中的局部变量。
  *
- * 2. 参数列表
+ * 2. 参数列表(Parameter list)
  *    类似普通函数的参数列表，用于接收调用 lambda 时传入的参数。
  *
- * 3. 可选说明符
+ * 3. 可选说明符(Mutable/Exception)
  *    常见的是 mutable。
  *    默认情况下，按值捕获的变量在 lambda 内部不能被修改。
  *    如果加上 mutable，则可以修改按值捕获变量的副本，
  *    但不会影响 lambda 外部的原变量。
  *
- * 4. -> 返回类型
+ * 4. -> 返回类型(Return type)
  *    用于显式指定 lambda 表达式的返回类型。
  *    如果编译器能够自动推导返回类型，可以省略。
  *
- * 5. 函数体
+ * 5. 函数体(Function body)
  *    lambda 表达式真正执行的代码。
  *
  * 本质：
