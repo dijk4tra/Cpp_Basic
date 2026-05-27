@@ -56,6 +56,12 @@ public:
         cout << "m_data:" << m_data << endl;
     }
 
+    // 一元谓词
+    bool isEven()
+    {
+        return m_data % 2 == 0;
+    }
+
     int m_data;
 };
 
@@ -117,10 +123,29 @@ void test2()
     std::for_each(box.begin(), box.end(), std::mem_fn(&Number::print));
 }
 
+void test3()
+{
+    vector<Number> box;
+
+    for(int i = 0; i < 10; ++i)
+    {
+        box.push_back(Number(i));
+    }
+
+    std::for_each(box.begin(), box.end(), std::mem_fn(&Number::print));
+
+    // 删除所有偶数的Number对象
+    auto it = std::remove_if(box.begin(), box.end(), std::mem_fn(&Number::isEven));
+    box.erase(it, box.end());
+
+    std::for_each(box.begin(), box.end(), std::mem_fn(&Number::print));
+}
+
 int main()
 {
     // test1();
-    test2();
-    
+    // test2();
+    // test3();
+
     return 0;
 }
