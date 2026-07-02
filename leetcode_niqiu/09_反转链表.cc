@@ -12,24 +12,24 @@ public:
     ListNode* reverseList(ListNode* head) {
         // prev 指向已经反转好的链表头
         // 一开始还没有反转任何节点，所以是 nullptr
-        ListNode* prev = nullptr;
-        ListNode* curr = head;
+        ListNode* pPrev = nullptr;
+        ListNode* pCurr = head;
 
-        while (curr != nullptr) {
+        while (pCurr != nullptr) {
             // 先保存当前节点的下一个节点
             // 否则反转 curr->next 后，后面的链表会丢失
-            ListNode* next = curr->next;
+            ListNode* pNext = pCurr->next;
 
             // 反转当前节点的 next 指针
-            curr->next = prev;
+            pCurr->next = pPrev;
 
-            // prev 和 cur 同时向后移动
-            prev = curr;
-            curr = next;
+            // pPrev 和 pCurr 同时向后移动
+            pPrev = pCurr;
+            pCurr = pNext;
         }
 
-        // cur 为空时，prev 正好指向反转后的新头节点
-        return prev;
+        // pCurr 为空时，pPrev 正好指向反转后的新头节点
+        return pPrev;
     }
 };
 
@@ -60,5 +60,13 @@ public:
 
 int main()
 {
+    // 测试
+    Solution solution;
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(3);
+    head->next->next->next = new ListNode(4);
+    head->next->next->next->next = new ListNode(5);
+    ListNode* reversed = solution.reverseList(head);
 
 }
